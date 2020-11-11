@@ -8,6 +8,8 @@ import Login from "./Login"
 import Logout from "./Logout"
 import Home from "./Home"
 import Question from './Question'
+import QuestionBoard from "./QuestionBoard";
+import LeaderBoard from "./LeaderBoard";
 
 let prefix = '/questions/';
 class App extends Component {
@@ -30,6 +32,7 @@ class App extends Component {
                 (<Router>
                     <Fragment>
 
+                      
                     <NavBar />
                       <Route path='/questions/:id' component={Question} />
 
@@ -37,10 +40,12 @@ class App extends Component {
                         <Route exact path = "/login" component ={Login} />
                         <Route exact path = "/logout" component ={Logout} />
                         <Route exact path="/" component={Home} />
+                        <Route exact path="/add" component={QuestionBoard} />
                       <Route exact path="/home" component={Home} />
+                      <Route exact path="/leader" component={LeaderBoard} />
 
                     </Switch>
-           
+
                 </Fragment>
          </Router>)}
         </div>

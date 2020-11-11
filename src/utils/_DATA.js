@@ -18,14 +18,14 @@ let users = {
     answers : {
       "f4xzgapq7mu783k9t02ghx" : "option1",
       "hbsc73kzqi75rg7v1e0i6a" : "option2",
-      "5c9qojr2d1738zlx09afby" : "option2"
+      "5c9qojr2d1738zlx09afby" : "option2",
     }
   },
   dan_abramov: {
     id: "dan_abramov",
     name: "Dan Abramov",
     avatarURL: "https://tylermcginnis.com/would-you-rather/dan.jpg",
-    questions: ['5w6k1n34dkp1x29cuzn2zn', 'czpa59mg577x1oo45cup0d', 'omdbjl68fxact38hk7ypy6', 'sfljgka8pfddbcer8nuxv', 'r0xu2v1qrxa6ygtvf2rkjw'],
+    questions: ['5w6k1n34dkp1x29cuzn2zn', 'czpa59mg577x1oo45cup0d', 'sfljgka8pfddbcer8nuxv', 'r0xu2v1qrxa6ygtvf2rkjw'],
     answers : {
       "omdbjl68fxact38hk7ypy6" : "option1",
       "hbsc73kzqi75rg7v1e0i6a" : "option2",
@@ -61,7 +61,7 @@ let questions = {
     },
     
     option2 :{
-      whoVoted : ['tylermcginnis'],
+      whoVoted : ['sarah_edo'],
       text: "would you rather vote Hello2 (Second question)"
     }
   },
@@ -135,32 +135,34 @@ function formattedQuestion ({ author, optionone, optiontwo }) {
 
 export function _saveQuestion (question) {
   return new Promise((res, rej) => {
-    const formattedQuestion = formattedQuestion(question);
+    console.log(" Question ins Save Question ", question)
+    const formattedQuest = formattedQuestion(question);
     const authUser = question.author;
-
+    console.log(" Formatted Question ", formattedQuest)
     setTimeout(() => {
       questions = {
         ...questions,
-        [formattedQuestion.id]: formattedQuestion,
+        [formattedQuest.id]: formattedQuest,
       }
 
+      console.log(" Questions in Formatted Quest ",formattedQuest)
       users = {
         ...users,
         [authUser]: {
           ...users[authUser],
-          questions: users[authUser].questions.concat([formattedQuestion.id])
+          questions: users[authUser].questions.concat([formattedQuest.id])
         }
       }
 
-      res(formattedQuestion)
-    }, 1000)
+      res(formattedQuest)
+    }, 100)
   })
 }
 
 
 
 /* the answer to the question already saved  */
-export function _saveQuestionAndAnswers({whichUser, questionId, answer})
+export function _saveQuestionAndAnswers({authedUser, questionId, option})
 {
   return new Promise((res, rej) => {
    // answer is option1 or option2. 
@@ -170,20 +172,20 @@ export function _saveQuestionAndAnswers({whichUser, questionId, answer})
         ...questions,
         [questionId] : {
           ...questions[questionId],
-          [answer] : {
-            ...questions[questionId][answer],
-            whoVoted: questions[questionId][answer].whoVoted.concat([whichUser])
+          [option] : {
+            ...questions[questionId][option],
+            whoVoted: questions[questionId][option].whoVoted.concat([authedUser])
           }
         }  
       }
 
       users = {
         ...users,
-        [whichUser]: {
-          ...users[whichUser],
+        [authedUser]: {
+          ...users[authedUser],
           answers: {
-            ...users[whichUser].answers,
-            [questionId] : answer
+            ...users[authedUser].answers,
+            [questionId] : option
           }
         }
       }

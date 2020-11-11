@@ -1,6 +1,6 @@
 
 export const RECEIVE_USERS = 'RECEIVE_USERS'
-export const ADD_QUESTION = 'ADD_QUESTION'
+export const ADD_QUESTION_TO_USER = 'ADD_QUESTION_TO_USER'
 export const ADD_ANSWER = 'ADD_ANSWER'
 
 export function addUserAnswer(userid, answer)
@@ -12,11 +12,13 @@ export function addUserAnswer(userid, answer)
     }
 }
 
-
+/*
+  Add the question to the users list.
+ */
 export function addUserQuestion(userid, questionid)
 {
     return {
-        type : ADD_QUESTION,
+        type : ADD_QUESTION_TO_USER,
         questionid,
         userid,
     }

@@ -26,11 +26,7 @@ class Question extends React.Component
 function mapStateToProps({authedUser, users, questions}, props)
 {
 
-    console.log("Location path ", props);
 
-    console.log("users path ", users);
-
-    console.log("authed Users  ", authedUser);
     let answered = false;
     let qid  = props.match.params.id;
     let usersObj = Object.values(users);

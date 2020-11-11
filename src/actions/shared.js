@@ -3,6 +3,7 @@ import {showLoading, hideLoading} from 'react-redux-loading'
 import { receiveQuestions, updateVotes,addQuestion } from './questions'
 import {saveQuestion, saveQuestionAndAnswers} from  '../utils/api'
 import {addUserQuestion , receiveUsers, addUserAnswer} from './users'
+import questions from "../reducers/questions";
 // Initial data handling.
 // dispatch() will call the actions and is sent to the reducers
 const AUTHED_ID = ['tylermcginnis'];
@@ -52,18 +53,19 @@ export function handleVote(questionId, option){
     return (dispatch, getState) => {
         let {authedUser} = getState();
 
-        let questionId = '';
+
         let answerObj = {[questionId] : option}
-        
-        return saveQuestionAndAnswers( 
+        return saveQuestionAndAnswers(
         {
             authedUser : authedUser.id, 
-            questionId,
-            answer:option // option = option1 or option2.
-        }
+            questionId : questionId,
+            option:option // option = option1 or option2.
+         }
         )
-        .then( ()=> dispatch(updateVotes(questionId, authedUser.id, option)))
-        .then ( () => dispatch(addUserAnswer(authedUser.id, answerObj)))
+        .then( ()=> dispatch(updateVotes({questionId, authedUser, option})))
+        .then ( () => {
+            dispatch(addUserAnswer(authedUser, answerObj))
+        })
 
        
     }

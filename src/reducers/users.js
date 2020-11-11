@@ -1,8 +1,9 @@
 import {
     RECEIVE_USERS,
-    ADD_QUESTION,
+    ADD_QUESTION_TO_USER,
     ADD_ANSWER,
 } from '../actions/users'
+import questions from "./questions";
 
 /*dan_abramov: {
     id: "dan_abramov",
@@ -20,26 +21,31 @@ import {
 
 export default function users(state = {}, action)
 {
+
     switch(action.type){
         case RECEIVE_USERS:
             return {
                 ...state,
                 ...action.users
             }
-        case ADD_QUESTION:
-            return {
+        case ADD_QUESTION_TO_USER:
+            let retObj = {
                 ...state,
-                [action.userId]:{
-                     ...state[action.userId],
-                    questions: state[action.userId].questions.concat([action.questionId])
+                [action.userid]:{
+                     ...state[action.userid],
+                    questions:
+                        state[action.userid].questions.concat([action.questionid])
                 }
             }
+            console.log(" Return obj in ADD_QUESTION ", retObj);
+            return retObj;
         case ADD_ANSWER:
             return {
                 ...state,
-                [action.userId] : {
-                    ...state[action.users],
-                    answers : {...state[action.userId].answers, ...action.answer}
+                [action.userid.id] : {
+                    ...state[action.userid.id],
+                    answers :
+                        {...state[action.userid.id].answers, ...action.answer}
                 }
             }
         default:

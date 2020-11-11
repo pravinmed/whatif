@@ -41,6 +41,13 @@ let questions = {
     option*/
  export default function questions(state = {}, action)
  {
+    if (action.option === 'option1') {
+        console.log(" Option1 ");
+    }
+     if ( action.option === 'option2')
+     {
+         console.log(" Option2 ");
+     }
      switch(action.type)
      {
          case RECEIVE_QUESTIONS:
@@ -55,20 +62,21 @@ let questions = {
                 [action.question.id] : action.question
             }
         case UPDATE_VOTES:
-            return {
+            let retObj =  {
                 ...state,
-                [action.questionid] : {
-                   ...state[action.questionid],
-                    option1 : 
-                        action.option === 'option1' ? {
-                        ...state[action.questionid].option1.whoVoted.concat([action.userid])
+                [action.questionId] : {
+                   ...state[action.questionId],
+                option1 : action.option === 'option1' ? {
+                          ...state[action.questionId].option1,
+                          whoVoted : state[action.questionId].option1.whoVoted.concat([action.authedUser.id])
                         } : {
-                        ...state[action.questionid].option1      
+                        ...state[action.questionId].option1
                         } ,
-                    option2 : action.option === 'option2' ? {
-                        ...state[action.questionid].option2.whoVoted.concat([action.userid])
+                 option2 : action.option === 'option2' ? {
+                         ...state[action.questionId].option2,
+                         whoVoted:  state[action.questionId].option2.whoVoted.concat([action.authedUser.id])
                     } : {
-                    ...state[action.questionid].option2
+                    ...state[action.questionId].option2
                     } 
                
                 }
@@ -77,6 +85,8 @@ let questions = {
 
 
             }
+            console.log(" Return object in Update Votes ", retObj)
+            return retObj;
         default :
             return state
      }

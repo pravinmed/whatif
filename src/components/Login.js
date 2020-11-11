@@ -61,9 +61,11 @@ class Login extends React.Component
            return  <Redirect to='/home' />
         }
         return (
-            <div>
+            <div >
                 <br>
                 </br>
+                <div>
+                <div className="box box2">
                 <h3 className='text-center'> Please Login here
                 </h3>
                 {loading === true ? null :
@@ -92,6 +94,12 @@ class Login extends React.Component
                     </Fragment>
                     )
                 }
+                 </div>
+                </div>
+
+                    <div className="box box3">
+                    </div>
+
             </div>
         )
     }

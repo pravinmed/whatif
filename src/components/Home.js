@@ -18,9 +18,11 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import {AppBar} from "@material-ui/core";
 import TabPanel from '@material-ui/core/TablePagination'
+import QuestionBoard from "./QuestionBoard";
 
 import Paper from '@material-ui/core/Paper'
 import Jstl from 'lodash'
+import  '../scss/style.scss';
 
 class Home extends React.Component
 {
@@ -59,8 +61,6 @@ class Home extends React.Component
         let value = [ "Answered" , "UnAnswered"]
         let {answered} = this.state;
         let {unanswered} = this.state;
-        console.log(" Answered ", answered)
-        console.log(" Un Answered ", unanswered)
 
         const {questions} =  this.props;
         const {authedUser} = this.props;
@@ -86,12 +86,10 @@ class Home extends React.Component
 
         let sortedQuestions = Object.values(displayQuestions).sort((a,b)=> a.timestamp - b.timestamp);
 
-        console.log("users " ,sortedQuestions);
-
         //questions.map
         return (
             <div>
-                Home
+
                 <nav className="navbar-expand-lg navbar-light bg-light">
                     <ul className="pagination pagination-lg justify-content-center">
                            <Button value="UnAnswered" onClick={this.OnHandleUnAnswered}>UnAnswered</Button>
@@ -99,37 +97,34 @@ class Home extends React.Component
                     </ul>
                 </nav>
                 <br></br>
-
-                <div>
                     {sortedQuestions.map(question => (
                         <Link to={`/questions/${question.id}`} className="questionBox" key = {question.id}>
-                            <div>{question.author} asks ...</div>
-                            <br></br>
-                            <div className="row text-center border rounded">
-                                Would you rather
-
-                            </div>
-                            <div className="row bg-primary">
-                                <div className="option col-5 p-2">
-                                {question.option1.text}
+                            <div className='grid-container'>
+                                <div >
+                                    {question.author} asks ...
                                 </div>
-                            </div>
-                            <div>
-                                    OR
-                            </div>
+                              <div className="item2">
+                                <img src={this.GetAvatar(question.author)} width="200" height="200" />
+                              </div>
+                                <div className="item3" >
                             <div className="row bg-primary">
-                                <div className="option col-5 p-2">
+                                {question.option1.text}
+                            </div>
+                            <p>
+                                    OR
+                            </p>
+                            <div className="row bg-primary">
+                                <div>
                                     {question.option2.text}
                                 </div>
                             </div>
-                            <div>
-                                <img src={this.GetAvatar(question.author)} width="60" height="60" />
-                              </div>
-                            <br></br>
-                            <br></br>
+                                  </div>
+                                <br></br>
+                            <div className="item5">View Poll</div>
+                            </div>
                         </Link>
                     ))}
-                </div>
+
                </div>
         )
     }

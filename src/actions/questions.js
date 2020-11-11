@@ -5,7 +5,7 @@ import { hideLoading, showLoading} from 'react-redux-loading';
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 export const UPDATE_VOTES = 'UPDATE_VOTES';
-export const ADD_QUESTION = 'ADD_QUESTIONS'
+export const ADD_QUESTION = 'ADD_QUESTION'
 
 
 export function receiveQuestions(question) {
@@ -15,11 +15,12 @@ export function receiveQuestions(question) {
     }
 }
 
-export function updateVotes ({qid, userid,option}) {
+export function updateVotes ({questionId, authedUser,option}) {
+    console.log(" Question ID", questionId);
     return {
         type : UPDATE_VOTES,
-        qid,
-        userid,
+        questionId,
+        authedUser,
         option
     }
 }
